@@ -28,15 +28,15 @@ class NewVisitorTest(unittest.TestCase):
         self.assertEqual(inputbox.get_attribute('placeholder'), '请输入一个待办事项！')
         
         # 他在一个文本框中输入了“ 早上记忆五个英语单词”
-        inputbox.sendkeys('早上记忆五个英语单词')
+        inputbox.send_keys('早上记忆五个英语单词')
         # 他回车确认，页面刷新了数据
-        inputbox.sendkeys(Keys.Enter)
+        inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
         # 显示了它输入要代办的事项
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1、早上记忆五个英语单词' for row in rows)
+            any(row.text == '1、早上记忆五个英语单词' for row in rows, '新增待办事项不在表格中')
         )
 
         # 页面中又显示了一个代办事项
