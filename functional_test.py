@@ -36,7 +36,8 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1、早上记忆五个英语单词' for row in rows, '新增待办事项不在表格中')
+            any(row.text == '1、早上记忆五个英语单词' for row in rows),
+            '新增待办事项不在表格中'
         )
 
         # 页面中又显示了一个代办事项
