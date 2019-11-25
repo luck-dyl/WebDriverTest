@@ -35,19 +35,32 @@ class NewVisitorTest(unittest.TestCase):
         # 显示了它输入要代办的事项
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1、早上记忆五个英语单词' for row in rows),
-            '新增待办事项不在表格中'
-        )
+        
+        # self.assertTrue(
+            # any(row.text == '1、早上记忆五个英语单词' for row in rows),
+            #'新增待办事项不在表格中'
+            # f"新增待办事项不在表格中\n内容是：{table.text}" # python3.6 字符串参数化写法，优化错误提示
+        # )
+        # 再次优化错误验证提示
+        self.assertIn('1、早上记忆五个英语单词', [row.text for row in rows])
+
 
         # 页面中又显示了一个代办事项
-        self.fail("finish the test!")
-
         # 它继续添加了一条， “中午完成测试app任务”
-
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('中午完成测试app任务')
+        
         # 回车，页面再次刷新，显示了两项代办事项
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+        
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('2、中午完成测试app任务', [row.text for row in rows])
+
 
         # 它很满意，页面记住了它的事项
+        self.fail("finish the test!")
 
 if __name__ == "__main__":
     unittest.main(warnings='ignore')
