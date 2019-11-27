@@ -55,5 +55,7 @@ class NewVisitorTest(unittest.TestCase):
         # 它很满意，页面记住了它的事项
         self.fail("finish the test!")
 
+
+
 if __name__ == "__main__":
     unittest.main(warnings='ignore')
