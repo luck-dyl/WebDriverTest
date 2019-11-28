@@ -44,7 +44,7 @@ class NewVisitorTest(unittest.TestCase):
         # 页面中又显示了一个代办事项
         # 它继续添加了一条， “中午完成测试app任务”
         inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('2、中午完成测试app任务')
+        inputbox.send_keys('中午完成测试app任务')
         
         # 回车，页面再次刷新，显示了两项代办事项
         inputbox.send_keys(Keys.ENTER)
