@@ -1,9 +1,10 @@
+from django.test import LiveServerTestCase  # 自动清理数据库，测试数据
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
+# import unittest
 import time
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -21,7 +22,8 @@ class NewVisitorTest(unittest.TestCase):
         #luck听说有一个非常有趣的在线编辑应用
 
         # luck访问这个网站
-        self.browser.get('http://localhost:8000')
+        # self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # 他注意到了标题和头部都包含了"TO - DO"这个词
         self.assertIn("To-Do", self.browser.title)
@@ -57,5 +59,5 @@ class NewVisitorTest(unittest.TestCase):
 
 
 
-if __name__ == "__main__":
-    unittest.main(warnings='ignore')
+# if __name__ == "__main__":
+    # unittest.main(warnings='ignore')
