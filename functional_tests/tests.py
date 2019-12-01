@@ -75,11 +75,13 @@ class NewVisitorTest(LiveServerTestCase):
         # 发现生成了一个唯一的URL
         jack_list_url = self.browser.current_url
         self.assertRegex(jack_list_url, '/lists/.+')
+        
         # 现在，凯莉的新用户访问了该网站
         ## 我们使用了一个新的用户浏览器会话
         ## 确保凯莉的信息不会从cookie中泄露出去
         self.browser.quit()
         self.browser = webdriver.Firefox()
+        
         # 凯莉访问了首页
         self.browser.get(self.live_server_url)
         # 页面中看不jack的清单
@@ -88,10 +90,10 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('确定一个小目标', page_text)
         
         # 凯莉添加了一个待办事项
-        inputbox = self.webdriver.find_element_by_id('id_new_item')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('凯莉买衣服')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('凯莉买衣服')
+        self.wait_for_row_in_list_table('1、凯莉买衣服')
         # 凯莉也获得她唯一的url
         caryly_list_url = self.browser.current_url
         self.assertRegex(caryly_list_url, '/list/+.')

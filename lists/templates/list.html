@@ -1,0 +1,22 @@
+<html>
+	<title>To-Do lists</title>
+	<head>
+		<h1>your To-Do lists</h1>
+	</head>
+	<body>
+		<form method="POST" action="/">
+			<input name="item_text" id="id_new_item" placeholder="请输入一个待办事项！"/>
+			{% csrf_token %}
+		</form>
+		<table id="id_list_table">
+			<!-- <tr> -->
+				<!-- <td>1、{{ new_item_text }}</td> -->
+			<!-- </tr> -->
+			<!-- 遍历列表 -->
+			{% for item in items %}
+				<tr><td>{{ forloop.counter }}、{{ item.text }}</td></tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
+
