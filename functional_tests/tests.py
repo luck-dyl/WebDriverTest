@@ -1,8 +1,11 @@
 from django.test import LiveServerTestCase  # 自动清理数据库，测试数据
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 # import unittest
 import time
+
+MAX_WAIT = 10
 
 class NewVisitorTest(LiveServerTestCase):
     
@@ -13,11 +16,19 @@ class NewVisitorTest(LiveServerTestCase):
         # 退出网站，睡觉去了
         self.browser.quit()
     
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
-        
+    def wait_for_row_in_list_table(self, row_text):
+        start_time = time.time()
+        while True:
+            try:
+                table = self.browser.find_element_by_id('id_list_table')
+                rows = table.find_elements_by_tag_name('tr')
+                self.assertIn(row_text, [row.text for row in rows])
+                return
+            except(AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
+                
     def test_to_do_list(self):
         #luck听说有一个非常有趣的在线编辑应用
 
@@ -38,9 +49,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('早上记忆五个英语单词')
         # 他回车确认，页面刷新了数据
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
         # 显示了它输入要代办的事项
-        self.check_for_row_in_list_table('1、早上记忆五个英语单词')
+        self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
 
 
         # 页面中又显示了一个代办事项
@@ -51,7 +61,7 @@ class NewVisitorTest(LiveServerTestCase):
         # 回车，页面再次刷新，显示了两项代办事项
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
-        self.check_for_row_in_list_table('2、中午完成测试app任务')
+        self.wait_for_row_in_list_table('2、中午完成测试app任务')
             
 
         # 它很满意，页面记住了它的事项
