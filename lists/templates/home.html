@@ -4,7 +4,7 @@
 		<h1>Start a New To-Do list</h1>
 	</head>
 	<body>
-		<form method="POST">
+		<form method="POST" action="/lists/new">
 			<input name="item_text" id="id_new_item" placeholder="请输入一个待办事项！"/>
 			{% csrf_token %}
 		</form>
