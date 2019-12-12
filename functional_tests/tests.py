@@ -86,7 +86,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         # 页面中看不jack的清单
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('早上记忆五个英语单词', page_text)
         self.assertNotIn('确定一个小目标', page_text)
         
         # 凯莉添加了一个待办事项
@@ -94,12 +93,17 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('凯莉买衣服')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1、凯莉买衣服')
+        
         # 凯莉也获得她唯一的url
         caryly_list_url = self.browser.current_url
-        self.assertRegex(caryly_list_url, '/list/+.')
+        self.assertRegex(caryly_list_url, '/lists/.+')
+        self.assertNotEqual(jack_list_url, caryly_list_url)
+        
         # 这个页面还是没有jack的待办清单
-        self.wait_for_row_in_list_table('早上记忆五个英语单词')
-        self.wait_for_row_in_list_table('确定一个小目标')
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('确定一个小目标', page_text)
+        self.assertIn('凯莉买衣服', page_text)
+
         # 两人都非常满意，睡觉去了
         self.browser.quit()
         
