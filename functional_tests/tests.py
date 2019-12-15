@@ -35,6 +35,11 @@ class NewVisitorTest(LiveServerTestCase):
         # luck访问这个网站
         # self.browser.get('http://localhost:8000')
         self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)     # 设置界面大小
+        
+        # 看到输入框完美居中
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width']/2, 512, delta=10)
 
         # 他注意到了标题和头部都包含了"TO - DO"这个词
         self.assertIn("To-Do", self.browser.title)
@@ -51,6 +56,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         # 显示了它输入要代办的事项
         self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
+        self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width']/2, 512, delta=10)
 
         # 页面中又显示了一个代办事项
         # 它继续添加了一条， “中午完成测试app任务”
