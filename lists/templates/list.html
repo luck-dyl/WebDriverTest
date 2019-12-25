@@ -1,22 +1,13 @@
-<html>
-	<title>To-Do lists</title>
-	<head>
-		<h1>your To-Do lists</h1>
-	</head>
-	<body>
-		<form method="POST" action="/lists/{{list.id}}/add_item">
-			<input name="item_text" id="id_new_item" placeholder="请输入一个待办事项！"/>
-			{% csrf_token %}
-		</form>
-		<table id="id_list_table">
-			<!-- <tr> -->
-				<!-- <td>1、{{ new_item_text }}</td> -->
-			<!-- </tr> -->
-			<!-- 遍历列表 -->
-			{% for item in list.item_set.all %}
-				<tr><td>{{ forloop.counter }}、{{ item.text }}</td></tr>
-			{% endfor %}
-		</table>
-	</body>
-</html>
+{% extends 'base.html'%}
 
+{% block header_text %} You To-Do list {%endblock%}
+
+{% block form_action %} /lists/{{lists.id}}/add_item {% endblock %}
+
+{% block table %}
+	<table id='id_list_table'>
+		{% for item in list.item_set.all %}
+			<tr><td> {{forloop.counter}}、{{ item.text }} </td></tr>
+		{% endfor %}
+	</table>
+{% endblock %}
