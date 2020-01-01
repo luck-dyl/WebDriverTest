@@ -1,3 +1,19 @@
 代办事项
 
 1、url.py 出现重复的，“事不过三原则，重构url”
+
+2、居中样式验证失败》 新增代办事项之后
+ERROR: test_can_start_a_list_for_one_user (functional_tests.tests.NewVisitorTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\TestDriverPro\superlists\functional_tests\tests.py", line 63, in test_can_start_a_list_for_one_user
+    print(inputbox_.location['x'])
+  File "C:\Users\86176\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webelement.py", line 532, in location
+    old_loc = self._execute(Command.GET_ELEMENT_RECT)['value']
+  File "C:\Users\86176\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\86176\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\86176\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: The element reference of <input id="id_new_item" name="item_text"> is stale; either the element is no longer attached to the DOM, it is not in the current frame context, or the document has been refreshed
