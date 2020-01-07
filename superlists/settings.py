@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '98ylk21^&*dbf6s9h5e1bd7!a*ipvh&2=(16$(h@x%-4cjcq$#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False       # 上线模式 False
 
-ALLOWED_HOSTS = ["hwluck.ddns.net", '144.202.115.194']
+ALLOWED_HOSTS = ["*", ] # '*'代表所有电脑都可以访问
 
 
 # Application definition
