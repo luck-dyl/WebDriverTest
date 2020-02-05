@@ -1,3 +1,4 @@
+# coding=utf-8
 """superlists URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -23,3 +24,6 @@ urlpatterns = [
     url(r'^$', list_views.home_page, name='home'),
     url(r'^lists/', include(list_urls)),
 ]
+# 解决djangov1.4版本以下，线上部署服务器，静态文件丢失问题
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
