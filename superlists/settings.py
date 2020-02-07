@@ -25,9 +25,10 @@ SECRET_KEY = '98ylk21^&*dbf6s9h5e1bd7!a*ipvh&2=(16$(h@x%-4cjcq$#'
 # SECURITY WARNING: don't run with debug turned on in production!
 # 警告：线上环境严禁开启，调试模式【DEBUG=True】
 DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 # 当DEBUG = False 时，需要设置此项,如：['127.0.0.1','www.baidu.com','*']
 # '*'代表所有电脑都可以访问
-ALLOWED_HOSTS = ['superlists-test.ddns.net']
+ALLOWED_HOSTS = ['superlists-test.ddns.net', '127.0.0.1', 'localhost']
 
 
 # Application definition
