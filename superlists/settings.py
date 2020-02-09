@@ -28,7 +28,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 # 当DEBUG = False 时，需要设置此项,如：['127.0.0.1','www.baidu.com','*']
 # '*'代表所有电脑都可以访问
-ALLOWED_HOSTS = ['superlists-test.ddns.net', '127.0.0.1', 'localhost', '144.202.115.194']
+ALLOWED_HOSTS = ['superlists-test.ddns.net', '144.202.115.194', '127.0.0.1', 'localhost']
 
 
 # Application definition
