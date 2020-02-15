@@ -26,6 +26,8 @@ def _get_latest_source(source_folder):
         run(f"cd {source_folder} && git fetch")
     else:
         run(f'git clone {REPO_URL} {source_folder}')
+    current_commit = local("git log -n 1 --format=%H", capture=True)
+    run(f'cd {source_folder} && git reset --hard {current_commit}')
 
 
 def _update_settings(source_folder, site_name):
@@ -50,7 +52,7 @@ def _update_virtualenv(source_folder):
 def _update_static_files(source_folder):
     run(
         f'cd {source_folder}'
-        ' && ../virtualenv/bin/pyhon manage.py collectstatic --noinput'
+        ' && ../virtualenv/bin/python manage.py collectstatic --noinput'
     )
 
 
