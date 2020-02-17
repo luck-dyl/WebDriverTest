@@ -6,6 +6,7 @@ from .base import FunctionalTest
 
 class ItemValidationTest(FunctionalTest):
     def test_cannot_add_empty_list_items(self):
+        # 暂时跳过此测试
         # luck 访问了首页，不小心提交了一个空信息
         # 输入框中无内容，他就按下了回车键
         self.browser.get(self.live_server_url)
@@ -29,7 +30,7 @@ class ItemValidationTest(FunctionalTest):
         # 在清单页面他看到一个类似的错误信息
         self.wait_for(lambda: self.assertEqual(
             self.browser.find_element_by_css_selector('.has-error').text,
-            'You can not have an empty list item'
+            "You can't have an empty list item"
         )
                       )
 
