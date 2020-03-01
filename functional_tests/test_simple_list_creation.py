@@ -17,7 +17,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.set_window_size(1024, 768)  # 设置界面大小
 
         # 看到输入框完美居中
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta=10)
 
         # 他注意到了标题和头部都包含了"TO - DO"这个词
@@ -26,8 +26,8 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('To-Do', head_text)
 
         # 网站邀请他输入一个代办事项
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertEqual(inputbox.get_attribute('placeholder'), '请输入一个待办事项！')
+        inputbox = self.get_item_input_box()
+        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
         # 他在一个文本框中输入了“ 早上记忆五个英语单词”
         inputbox.send_keys('早上记忆五个英语单词')
@@ -36,12 +36,12 @@ class NewVisitorTest(FunctionalTest):
         # 显示了它输入要代办的事项
         self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
 
-        inputbox = self.browser.find_element_by_id('id_new_item')  # inputbox.location['x']调用会报错，需要在它之前调用查找方法
+        inputbox = self.get_item_input_box()  # inputbox.location['x']调用会报错，需要在它之前调用查找方法
         self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta=10)
 
         # 页面中又显示了一个代办事项
         # 它继续添加了一条， “中午完成测试app任务”
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('中午完成测试app任务')
         inputbox.send_keys(Keys.ENTER)
 
@@ -55,7 +55,7 @@ class NewVisitorTest(FunctionalTest):
     def test_multiple_users_can_start_lists_at_diffrent_urls(self):
         # jack 创建了新的待办事项
         self.browser.get(self.live_server_url)
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys("确定一个小目标")
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1、确定一个小目标')
@@ -76,7 +76,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('确定一个小目标', page_text)
 
         # 凯莉添加了一个待办事项
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('凯莉买衣服')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1、凯莉买衣服')
