@@ -30,11 +30,11 @@ class NewVisitorTest(FunctionalTest):
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
         # 他在一个文本框中输入了“ 早上记忆五个英语单词”
-        inputbox.send_keys('早上记忆五个英语单词')
+        inputbox.send_keys('Buy peacock feathers')
         # 他回车确认，页面刷新了数据
         inputbox.send_keys(Keys.ENTER)
         # 显示了它输入要代办的事项
-        self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
+        self.wait_for_row_in_list_table('1、Buy peacock feathers')
 
         inputbox = self.get_item_input_box()  # inputbox.location['x']调用会报错，需要在它之前调用查找方法
         self.assertAlmostEqual(inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta=10)
@@ -42,12 +42,17 @@ class NewVisitorTest(FunctionalTest):
         # 页面中又显示了一个代办事项
         # 它继续添加了一条， “中午完成测试app任务”
         inputbox = self.get_item_input_box()
-        inputbox.send_keys('中午完成测试app任务')
+        inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
 
         # 回车，页面再次刷新，显示了两项代办事项
-        self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
-        self.wait_for_row_in_list_table('2、中午完成测试app任务')
+        """
+        这个地方的判断，1/2 代办事项是不严谨的，不同的语言，或者类型，如：中文、英文、数字 他们的排序不一定有规律
+        """
+        # self.wait_for_row_in_list_table('1、早上记忆五个英语单词')
+        # self.wait_for_row_in_list_table('2、中午完成测试app任务')
+        self.wait_for_row_in_list_table('1、Buy peacock feathers')
+        self.wait_for_row_in_list_table('2、Use peacock feathers to make a fly')
 
         # 它非常高兴，睡觉去了
         # self.fail("finish the test!")

@@ -71,8 +71,10 @@ class ItemValidationTest(FunctionalTest):
         self.wait_for(lambda: self.assertTrue(
             self.get_error_element().is_displayed()
         ))
+
         # 为了消除错误，她开始在输入框中输入内容
         self.get_item_input_box().send_keys('a')
+
         # 看到错误消息消失了，她很高兴
         self.wait_for(lambda: self.assertFalse(
             self.get_error_element().is_displayed()
