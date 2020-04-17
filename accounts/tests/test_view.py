@@ -4,7 +4,7 @@ import accounts.views
 
 class SendLoginEmailViewTest(TestCase):
     def test_redirects_to_home_page(self):
-        response = self.client.post('/accounts/send_email', data={
+        response = self.client.post('/accounts/send_login_email', data={
             'email': 'adb@example.com'
         })
         self.assertRedirects(response, '/')
@@ -20,9 +20,11 @@ class SendLoginEmailViewTest(TestCase):
             self.to_list = to_list
 
         accounts.views.send_mail = fake_send_mail
+
         self.client.post('/accounts/send_login_email', data={
             'email': 'edith@example.com'
         })
+
         self.assertTrue(self.send_mail_called)
         self.assertEqual(self.subject, 'Your login link for Superlists')
         self.assertEqual(self.from_email, 'noreply@superlists')
