@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -24,12 +23,13 @@ SECRET_KEY = '98ylk21^&*dbf6s9h5e1bd7!a*ipvh&2=(16$(h@x%-4cjcq$#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 警告：线上环境严禁开启，调试模式【DEBUG=True】
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 # TEMPLATE_DEBUG = DEBUG
 # 当DEBUG = False 时，需要设置此项,如：['127.0.0.1','www.baidu.com','*']
 # '*'代表所有电脑都可以访问
-ALLOWED_HOSTS = ['superlists-test.ddns.net',  '144.202.115.194']
-
+# ALLOWED_HOSTS = ['superlists-test.ddns.net', '144.202.115.194', ]
+ALLOWED_HOSTS = ['superlists-test.ddns.net', '144.202.115.194', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = ['accounts.authentication.PasswordlessAuthenticationBackend', ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'superlists.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -86,7 +86,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -106,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -120,10 +118,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 # collectstatic DIR
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+# SMTP SET
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = '17620360905@163.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = 25  # 当我设置成 465时，False , 发送邮件失败！
+EMAIL_USE_TLS = True
