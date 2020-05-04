@@ -126,11 +126,23 @@ STATIC_URL = '/static/'
 # collectstatic DIR
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
-# SMTP SET
-EMAIL_HOST = 'smtp.163.com'
-EMAIL_HOST_USER = '17620360905@163.com'
+# SMTP SET 163.com
+# EMAIL_HOST = 'smtp.163.com'
+# EMAIL_HOST_USER = '17620360905@163.com'
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+# EMAIL_PORT = 25  # 当我设置成 465时，False , 发送邮件失败！
+# EMAIL_USE_TLS = True
+
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# 服务器名称: smtp.office365.com
+# 端口: 587
+# 加密方法: STARTTLS
+
+# SMTP SET outlook.com
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST_USER = 'testsuperlists@outlook.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-EMAIL_PORT = 25  # 当我设置成 465时，False , 发送邮件失败！
+EMAIL_PORT = 587  # SMTP 加密方法 STARTTLS
 EMAIL_USE_TLS = True
 
 LOGGING = {
