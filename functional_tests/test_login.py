@@ -45,7 +45,7 @@ class LoginTest(FunctionalTest):
         if self.staging_server:
             test_email = '3479566308@qq.com'
         else:
-            test_email = 'edith@example.com'
+            test_email = '526598423@qq.com'
         self.browser.get(self.live_server_url)
 
         # 输入邮箱账号，回车
@@ -65,7 +65,7 @@ class LoginTest(FunctionalTest):
         self.assertIn(self.live_server_url, url)
 
         self.browser.get(url)
-
+        time.sleep(60)
         # 她登录了
         self.wait_to_be_logged_in(email=test_email)
 
