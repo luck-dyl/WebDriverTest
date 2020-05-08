@@ -1,11 +1,17 @@
 [Unit]
-Description=Gunicorn server for SITENAME
+Description=Gunicorn server for superlists-test.ddns.net
 
 [Service]
 Restart=on-failure
 User=luck
-WorkingDirectory=/home/luck/sites/SITENAME/source
-ExecStart=/home/luck/sites/SITENAME/virtualenv/bin/gunicorn --bind unix:/tmp/SITENAME.socket superlists.wsgi:application -w3
+Environment=EMAIL_PASSWORD=“pls pull your real emailpassword”
+WorkingDirectory=/home/luck/sites/superlists-test.ddns.net/source
+ExecStart=/home/luck/sites/superlists-test.ddns.net/virtualenv/bin/gunicorn \
+	--bind unix:/tmp/superlists-test.ddns.net.socket \
+	--capture-output \
+	--access-logfile ../access.log \
+	--error-logfile ../error.log \
+	superlists.wsgi:application -w3
 
 [Install]
 WantedBy=multi-user.target

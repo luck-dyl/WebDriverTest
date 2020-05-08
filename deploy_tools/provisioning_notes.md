@@ -14,6 +14,7 @@
 ## Systemd服务
 * 参考gunicorn-upstart.template.conf
 * 把SITENAME替换成所需的域名，例如staging.my-domain.com
+* 把“pls pull your real emailpassword”替换成电子邮件密码
 ## 文件夹结构：
 假设有用户账户，家目录为/home/username
 /home/username

@@ -43,7 +43,7 @@ class LoginTest(FunctionalTest):
 
         # 访问网站
         if self.staging_server:
-            test_email = '3479566308@qq.com'
+            test_email = '526598423@qq.com'
         else:
             test_email = '526598423@qq.com'
         self.browser.get(self.live_server_url)
