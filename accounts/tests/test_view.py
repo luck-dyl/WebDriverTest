@@ -1,6 +1,9 @@
 from django.test import TestCase
 from unittest.mock import patch, call
 from accounts.models import Token
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class SendLoginEmailViewTest(TestCase):
@@ -69,7 +72,3 @@ class LoginViewTest(TestCase):
         self.assertEqual(mock_auth.login.called, False)
 
 
-class MyListsTest(TestCase):
-    def test_my_lists_url_renders_my_lists_template(self):
-        response = self.client.get('/lists/users/a@b.com/')
-        self.assertTemplateUsed(response, 'my_lists.html')
