@@ -2,8 +2,9 @@ from django import forms
 from lists.models import Item
 from django.core.exceptions import ValidationError
 
-EMPTY_ITEM_ERROR = "You can't have an empty list item"
-DUPLICATE_ITEM_ERROR = "You've already got this in your list"
+EMPTY_ITEM_ERROR = "You can not have an empty list item"
+DUPLICATE_ITEM_ERROR = "You have already got this in your list"
+
 
 
 class ItemForm(forms.models.ModelForm):

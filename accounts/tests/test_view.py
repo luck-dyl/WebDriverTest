@@ -1,6 +1,9 @@
 from django.test import TestCase
 from unittest.mock import patch, call
 from accounts.models import Token
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class SendLoginEmailViewTest(TestCase):
@@ -67,3 +70,5 @@ class LoginViewTest(TestCase):
         mock_auth.authenticate.return_value = None
         self.client.get('/accounts/login?token=abcd123')
         self.assertEqual(mock_auth.login.called, False)
+
+
