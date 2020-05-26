@@ -22,10 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '98ylk21^&*dbf6s9h5e1bd7!a*ipvh&2=(16$(h@x%-4cjcq$#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# 注意： 当你用开发这服务器调试时，DEBUG 不是 True 时，django直接限制访问静态文件，这是"django的特性"
+# 当我们在开发django应用时如果设置了 DEBUG = True，那么django便会自动帮我们对静态文件进行路由；但是当我们设置DEBUG = False后，这一功能便没有了
 # 警告：线上环境严禁开启，调试模式【DEBUG=True】
-# DEBUG = False
-DEBUG = False
 DEBUG = True
+
 # TEMPLATE_DEBUG = DEBUG
 # 当DEBUG = False 时，需要设置此项,如：['127.0.0.1','www.baidu.com','*']
 # '*'代表所有电脑都可以访问
@@ -128,6 +129,18 @@ STATIC_URL = '/static/'
 # collectstatic DIR
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
+# 解决debug=False时，静态文件无法获取到，便于本地调试
+# 如果设置了，就分不清，服务器访问的是哪个文件夹下的静态文件了
+# 出现的问题根本原因是：当我们在开发django应用时如果设置了 DEBUG = True，那么django便会自动帮我们对静态文件进行路由；
+# 但是当我们设置DEBUG = False后，这一功能便没有了，此时静态文件就会出现加载失败的情况，想要让静态文件正常显示，
+# 我们就需要配置静态文件服务了，指定目录，或者 nginx 配置静态文件目录。https://www.cnblogs.com/ievjai/p/9926187.html
+
+# STATICFILES_DIRS告诉django,首先到STATICFILES_DIRS里面寻找静态文件，其次再到各个app的static文件夹里面找
+# 注意：django查找静态文件是惰性查找,查找到第一个,就停止查找了
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, '/static/'),  ##修改地方
+# ]
 # SMTP SET 163.com
 # EMAIL_HOST = 'smtp.163.com'
 # EMAIL_HOST_USER = '17620360905@163.com'
